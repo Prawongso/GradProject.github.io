@@ -7,8 +7,8 @@ import cv2
 import os
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-f", "--face", type=str, default="face_detector", help="path to face detector model directory")
-ap.add_argument("-m", "--model", type=str, default="mask_detector.model", help="path to trained face mask detector model")
+ap.add_argument("-f", "--face", type=str, default="MaskDetect/face_detector", help="path to face detector model directory")
+ap.add_argument("-m", "--model", type=str, default="MaskDetect/mask_detector.model", help="path to trained face mask detector model")
 ap.add_argument("-c", "--confidence", type=float, default=0.5, help="minimum probability to filter weak detections")
 args = vars(ap.parse_args())
 
@@ -19,9 +19,9 @@ weightsPath = os.path.sep.join([args["face"],"res10_300x300_ssd_iter_140000.caff
 net = cv2.dnn.readNet(prototxtPath, weightsPath)
 
 print("loading face mask detector model...")
-model = load_model("model.h5")
+model = load_model("MaskDetect/model.h5")
 
-image = cv2.imread("input/face.jpg")
+image = cv2.imread("MaskDetect/input/face.jpg")
 orig = image.copy()
 (h, w) = image.shape[:2]
 
