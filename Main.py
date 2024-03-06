@@ -2,7 +2,6 @@
 
 # importing OpenCV library 
 import cv2 as cv
-
 # initialize the camera 
 # If you have multiple camera connected with 
 # current device, assign a value in cam_port 
@@ -22,13 +21,13 @@ if result:
 	cv.imshow("input1", image) 
 
 	# saving image in local storage 
-	cv.imwrite("input1.jpg", image) 
+	cv.imwrite("MaskDetect\input\input1.jpg", image) 
 
 	# If keyboard interrupt occurs, destroy image 
 	# window 
 	cv.waitKey(0) 
 	cv.destroyWindow("input1") 
-
+	exec(open("MaskDetect/MaskDetec.py").read())
 # If captured image is corrupted, moving to else part 
 else: 
 	print("No image detected. Please! try again") 

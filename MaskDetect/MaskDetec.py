@@ -21,7 +21,8 @@ net = cv2.dnn.readNet(prototxtPath, weightsPath)
 print("loading face mask detector model...")
 model = load_model("MaskDetect/model.h5")
 
-image = cv2.imread("MaskDetect/input/face.jpg")
+image = cv2.imread("MaskDetect/input/input1.jpg")
+image2 = cv2.imread("MaskDetect/input/input1.jpg")
 orig = image.copy()
 (h, w) = image.shape[:2]
 
@@ -60,5 +61,8 @@ for i in range(0,detections.shape[2]):
 
 cv2.imshow("Output", image)
 cv2.waitKey(0)
+cv2.destroyWindow("Output") 
+cv2.imwrite("FaceRec/unknown_image/Unknown3.jpg", image2) 
+exec(open("FaceRec/FaceRec.py").read()) if label == "No Mask Detected" else cv2.waitKey(0)
 
 
