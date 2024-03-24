@@ -2,15 +2,15 @@ import face_recognition
 import cv2
 
 # Load the known image
-known_image = face_recognition.load_image_file("FaceRec/known_image/biden.jpg")
-biden_encoding = face_recognition.face_encodings(known_image)[0]
+known_image = face_recognition.load_image_file("FaceRec/known_image/Vincent.jpg")
+vincent_encoding = face_recognition.face_encodings(known_image)[0]
 
 # Load the unknown image
-unknown_image = cv2.imread("FaceRec/unknown_image/unknown3.jpg")
+unknown_image = cv2.imread("FaceRec/unknown_image/unknown.jpg")
 unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
 
 # Compare faces
-results = face_recognition.compare_faces([biden_encoding], unknown_encoding)
+results = face_recognition.compare_faces([vincent_encoding], unknown_encoding)
 
 def ResizeWithAspectRatio(image, width=None, height=None, inter=cv2.INTER_AREA):
     dim = None
