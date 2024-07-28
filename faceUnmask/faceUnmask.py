@@ -27,19 +27,20 @@ input_img_path = "faceUnmask\input\input1.jpg"
 # input_img = preprocess_input(input_img)
 
 # Generate the output using the model
-generated_output = model.predict('faceUnmask\input\VincentM.jpg')
+generated_output = model.predict(input_img_path)
+
+figsize = (3, 2)  # width, height in inches
 
 # Display the input image and the generated output
-f, axarr = plt.subplots(1, 1)
+f, axarr = plt.subplots(1, 1, figsize=figsize)
 axarr.imshow(generated_output)
 axarr.set_title('AI Generated Output')
 axarr.axis('off')
 f.savefig('FaceRec/unknown_image/Unknown3.jpg', format='jpg', dpi=300)
 plt.show()
-plt.waitforbuttonpress()
 
 # Check if the key pressed is Enter (keycode 13)
 if plt.get_current_fig_manager().toolbar.mode == '':
     plt.close(f)
     print("Loading face recognition...") 
-    exec(open("FaceRec/FaceRec.py").read())  
+    exec(open("FaceRec/cialEx.py").read())  
