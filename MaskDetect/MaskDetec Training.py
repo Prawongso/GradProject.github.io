@@ -1,4 +1,3 @@
-# Python Face Mask Detection by Muhammed Furkan Gulsen
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -21,7 +20,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import classification_report
 
-
+#cnn
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", "--dataset", type=str, default="dataset",
 	help="path to input dataset")

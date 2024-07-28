@@ -6,7 +6,7 @@ known_image = face_recognition.load_image_file("FaceRec/known_image/Vincent.jpg"
 vincent_encoding = face_recognition.face_encodings(known_image)[0]
 
 # Load the unknown image
-unknown_image = cv2.imread("FaceRec/unknown_image/unknown.jpg")
+unknown_image = cv2.imread("FaceRec/unknown_image/Unknown3.jpg")
 unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
 
 # Compare faces

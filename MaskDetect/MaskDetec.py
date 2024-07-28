@@ -23,10 +23,26 @@ model = load_model("MaskDetect/model.h5")
 
 image = cv2.imread("MaskDetect/input/input1.jpg")
 image2 = cv2.imread("MaskDetect/input/input1.jpg")
-orig = image.copy()
-(h, w) = image.shape[:2]
+def ResizeWithAspectRatio(image, width=None, height=None, inter=cv2.INTER_AREA):
+    dim = None
+    (h, w) = image.shape[:2]
 
-blob = cv2.dnn.blobFromImage(image, 1.0, (300, 300),
+    if width is None and height is None:
+        return image
+    if width is None:
+        r = height / float(h)
+        dim = (int(w * r), height)
+    else:
+        r = width / float(w)
+        dim = (width, int(h * r))
+
+    return cv2.resize(image, dim, interpolation=inter)
+
+resize = ResizeWithAspectRatio(image, height= 720)
+orig = resize.copy()
+(h, w) = resize.shape[:2]
+
+blob = cv2.dnn.blobFromImage(resize, 1.0, (300, 300),
 	(104.0, 177.0, 123.0))
 
 print("computing face detections...")
@@ -41,7 +57,7 @@ for i in range(0,detections.shape[2]):
         (startX, startY) = (max(0, startX), max(0, startY))
         (endX, endY) = (min(w - 1, endX), min(h - 1, endY))
         
-        face = image[startY:endY, startX:endX]
+        face = resize[startY:endY, startX:endX]
         face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
         face = cv2.resize(face, (224, 224))
         face = img_to_array(face)
@@ -56,13 +72,19 @@ for i in range(0,detections.shape[2]):
         #label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
         #cv2.putText(image, label, (w-110, h-10), cv2.FONT_HERSHEY_SIMPLEX, 0.50, color, 2)
 
-        cv2.rectangle(image, (startX, startY), (endX, endY), color, 2)
-        cv2.putText(image, label, (startX+10,endY+25), cv2.FONT_HERSHEY_DUPLEX , 1, color)
+        cv2.rectangle(resize, (startX, startY), (endX, endY), color, 2)
+        cv2.putText(resize, label, (startX+10,endY+25), cv2.FONT_HERSHEY_DUPLEX , 1, color)
 
-cv2.imshow("Output", image)
+cv2.imshow("Output", resize)
 cv2.waitKey(0)
 cv2.destroyWindow("Output") 
-cv2.imwrite("FaceRec/unknown_image/Unknown3.jpg", image2) 
-exec(open("FaceRec/FaceRec.py").read()) if label == "No Mask Detected" else cv2.waitKey(0)
+if label == "No Mask Detected":
+    cv2.imwrite("FaceRec/unknown_image/Unknown3.jpg", image2) 
+    print("Loading face recognition...") 
+    exec(open("FaceRec/cialEx.py").read())  
+else: 
+    cv2.imwrite("faceUnmask/input/input1.jpg", image2) 
+    print("Loading AI face unmasking...") 
+    exec(open("faceUnmask/faceUnmask.py").read()) 
 
 
