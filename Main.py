@@ -21,7 +21,7 @@ if result:
 
     cv.imshow("input1", image) 
 
-    cv.imwrite("MaskDetect\input\input1.jpg", image) 
+    cv.imwrite("MaskDetect\input\input1.jpg", image)
 
     cv.waitKey(0) 
     cv.destroyWindow("input1") 
